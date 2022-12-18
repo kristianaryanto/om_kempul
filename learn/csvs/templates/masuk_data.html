@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil_Data</title>
+    <h2>Tambah table</h2>
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 99%;
+        }
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        </style>
+</head>
+<body>
+    {% if message is not None  %}
+    <script>
+        alert('{{ message }}');
+    </script>
+    {% endif %}
+    <li><a href="/filter">Filter</a></li>
+    <li><a href="/change">change</a></li>
+    <li><a href="/delete">delete</a></li>
+    <form method="post">
+        {% csrf_token %}
+        <label for="column">column</label>
+        <input type="text" name="column" id="column">
+        <br>
+        <label for="condition">condition</label>
+        <input type="number" name="condition" id="condition">
+        <br>
+        <label for="new_column">new_column</label>
+        <input type="text" name="new_column" id="new_column">
+        <br>
+        <label for="value_column">value_column</label>
+        <input type="text" name="value_column" id="value_column">
+        <br>
+        <button type="Submit">Kirim</button>
+
+    </form>
+    
+    <table border="1" cellpadding = "5" cellspacing = "5">
+        <tr>
+            {% for i in Cols3 %}
+                <td>
+                    {{i}}
+                </td>
+            {% endfor %}
+        </tr>
+        {% for i in Data3 %}
+        <tr>
+            {% for key,value in i.items %}
+                <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    
+    
+    </table>
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base_user.html' %}
+{% block content %}
+    {% for message in messages %}
+    <script>
+        alert('{{ message }}');
+    </script>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="group">group</label>
+        <input type="text" name="group" id="group">
+        <input type="submit"/>
+    </form>
+    <div class="ratio ratio-1x1">
+        <iframe src="https://getbootstrap.com/docs/5.0/components/modal/#change-animation"></iframe>
+    </div>
+{% endblock  %}

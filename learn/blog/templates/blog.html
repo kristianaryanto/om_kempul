@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Model Teman Data</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
+<body>
+    <h1>Model Machine Learning</h1>
+    <nav>
+        <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/blog/recent">recent</a></li>
+            <li><a href="/blog/sklear">sklear</a></li>
+            <li><a href="/blog/tensorflow">tensorflow</a></li>
+            <li><a href="/blog/mlflow">mlflow</a></li>
+        </ul>
+    </nav>
+    {% for post in Posts %}
+        <h3>{{post.title}}</h3>
+        <p>{{post.body}}</p>
+    {% endfor %}
+</body>
+</html>

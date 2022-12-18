@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for message in messages %}
+    <script>
+        alert('{{ message }}');
+    </script>
+    {% endfor %}
+    <nav>
+        <ul>
+            <li><a href="/transfer">Back</a></li>
+        </ul>
+    </nav>
+    <form method="post">
+        {% csrf_token %}
+            <label for="colums">colums</label>
+            <input type="text" name="colums" id="colums">
+            <br>
+            <label for="values">values</label>
+            <input type="text" name="values" id="values">
+            <br>
+            <input type="checkbox" id="Delete Data" name="Delete Data" >
+            <label for="Delete Data"> Delete Data</label><br>
+        <button type="Submit">Kirim</button>
+    </form>
+    
+    <table border="1" cellpadding = "5" cellspacing = "5">
+        <tr>
+            {% for i in Cols3 %}
+                <td>
+                    {{i}}
+                </td>
+            {% endfor %}
+        </tr>
+        {% for i in Data3 %}
+        <tr>
+            {% for key,value in i.items %}
+                <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    
+    
+    </table>
+
+{% endblock  %}

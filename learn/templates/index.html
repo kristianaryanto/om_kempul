@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>selamat datang di {{h1}} </h1>
+    <p>Pilih Model</p>
+    <ul>
+        {#template#}
+
+        {% for link,name in nav %}
+
+        <li>
+            <a href="{{link}}">{{name}}</a>
+        </li>
+        {% endfor %}
+
+    </ul>
+</body>
+</html>

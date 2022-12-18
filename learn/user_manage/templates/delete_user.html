@@ -1,0 +1,18 @@
+{% extends 'base_user.html' %}
+{% block content %}
+    {% for message in messages %}
+    <script>
+        alert('{{ message }}');
+    </script>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <select name="delete_user">
+        <option selected disabled value=''>Pilih Table</option>
+        {% for i in user%}
+        <option>{{i}}</option>
+        {% endfor %}
+        <input type="submit"/>
+    </form>
+
+{% endblock  %}

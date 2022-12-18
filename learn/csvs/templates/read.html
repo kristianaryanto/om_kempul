@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil_Data</title>
+</head>
+<body>
+
+    <li><a href="/">input_csv</a></li>
+    <li><a href="/filter">Filter</a></li>
+    <li><a href="/transfer">transfer</a></li>
+<table border="1" cellpadding = "5" cellspacing = "5">
+    <tr>
+        {% for i in Cols %}
+            <td>
+                {{i}}
+            </td>
+        {% endfor %}
+    </tr>
+    {% for i in Data %}
+    <tr>
+        {% for key,value in i.items %}
+            <td>{{value}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+
+    <form method="post">
+            {% csrf_token %}
+        <select name="Dataini" >
+          <option selected disabled value=''>Pilih Database</option>
+          {% for i in select %}
+          <option>{{i}}</option>
+          {% endfor %}
+          <input type="submit"   />
+        </select>
+      </form>
+</table>
+
+
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+
+{% block title %}
+main page
+
+
+{% endblock title %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="form-horizontal"> 
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+        <div class="col-md-8">
+            <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+        </div>                    
+    </div>
+    <div class="form-group">                    
+        <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+             <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+        </div> 
+    </div>
+    </form>
+      <a href="/transfer">lihat hasil</a>
+    <br/>
+    {% for i in error %}
+        {{i}}<br/>
+    {% endfor %}
+    <br>
+    {% if Cols2 != None %}
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for i , j, k in Cols2 %}
+                    <th>
+                        {{i}}
+                        <select class="form-select" aria-label="Default select example" name="{{i}}">
+                            {% for datatype in datatypes %}
+                            {% if j == datatype %}
+                            <option selected value="{{datatype}}">{{datatype}}</option>
+                            {% else %}
+                            <option value="{{datatype}}">{{datatype}}</option>
+                            {%endif%}
+                            {%endfor%}    
+                        </select>          
+                        
+                    </th>
+                    {% endfor %}
+                    <th>
+                        <button name="Send" type="submit" value="Yes">Send</button>
+                </th>
+            </form>
+        </tr>
+        <tr>
+            {% for i in DelCols2 %}
+            <form method="post">
+                {% csrf_token %}
+            <th><button name="delete" type="submit" value="{{i}}">delete</button></th>
+ 
+            <form method="post">
+            
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            {% for i in Data2 %}
+            <tr>
+                {% for key,value in i.items %}
+                <form method="post">
+                <td>{{value}}</td>
+                </form>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+        
+    </table>
+    {% endif %}
+
+{% endblock content %}

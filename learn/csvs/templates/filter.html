@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+    {% if message is not None  %}
+    <script>
+        alert('{{ message }}');
+    </script>
+    {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/transfer">read_data</a>
+            <a class="nav-item nav-link" href="/input_data">Manipulasi Data</a>
+          </div>
+        </div>
+      </nav>
+
+    <br>
+    <!-- <form method="post">
+        {% csrf_token %}
+        <label for="database">database</label>
+        <input type="text" name="database" id="database">
+        <br>
+        <label for="delimiter">delimiter</label>
+        <input type="text" name="delimiter" id="delimiter">
+        <br>
+        <button type="Submit">Kirim</button>
+
+    </form> -->
+<br>
+<form method="post">
+    {% csrf_token %}
+
+    <input type="text" class="form-control" name="tes">
+<button>Send</button>
+</form>
+<div class="table-responsive tbodyDiv">
+<table class="table table-striped ">
+    <thead>
+
+        <tr>
+            <form method="post">
+                {% csrf_token %}
+
+            {% for i , j, k in Cols2 %}
+                <th>
+                    {{i}}
+                    <select onchange="this.form.submit();" class="form-select" aria-label="Default select example" name="{{i}}">
+                        {% for datatype in datatypes %}
+                        {% if j == datatype %}
+                        <option selected value="{{datatype}}">{{datatype}}</option>
+                        {% else %}
+                        <option value="{{datatype}}">{{datatype}}</option>
+                        {%endif%}
+                        {%endfor%}    
+                    </select>
+                       nan: {{k}}                        
+
+                </th>
+            {% endfor %}
+            </form>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in Data2 %}
+        <tr>
+            {% for key,value in i.items %}
+            <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>
+</div>
+
+{% endblock  %}

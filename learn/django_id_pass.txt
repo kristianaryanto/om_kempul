@@ -1,0 +1,7 @@
+Username (leave blank to use 'kris'): admin
+Email address: kris@gmail.com
+Password: Krisdewa123
+
+this is postgres ==>
+
+create user kris with superuser password '1232';

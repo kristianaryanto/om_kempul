@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-12 row d-flex justify-content-center upper" style="float : left; border: 1px solid blue; border-radius: 10px;">
+    {% if messagealert is not None  %}
+    <script>
+        alert('{{ messagealert }}');
+    </script>
+    {% endif %}
+    
+   
+    <div class=" col-lg-12 row accordion">
+        <div class="accordion-item">
+                <h1 class="accordion-header" id="headingOne1">
+                    <button id = 'accordion_'class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        {% if dbname is None%}
+                        Silahkan isi konfigurasi database
+                        {% else%}
+                        Database Name : {{dbname}} 
+                        {% endif%}
+                    </button>
+                </h1>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample"> 
+                <form method="post" action="">
+                    <div class="row mt-3 mb-3">
+                            {% csrf_token %}
+                            <input type="text" class="form-control col me-3 ms-2" name="dbname" id="dbname"placeholder="dbname">
+                            <input type="text"class="form-control col me-3" name="user" id="user"placeholder="user">
+                            <input type="password" class="form-control col me-3" name="password" id="password" placeholder="password">
+                            <input type="text"class="form-control col me-3" name="host" id="host"placeholder="host">
+                            <input type="text"class="form-control col me-2" name="port" id="port"placeholder="port">
+                    </div>
+                      <input type="Submit"class =" " name="form_type" value="Connect Database"></form>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+    <div class="data_action">
+        {% if dbname is not None%}
+            <form method="post">
+                {% csrf_token %}
+                <select name="Dataini">
+                    <option selected disabled >Choose Table</option>
+                    {% for i in select %}
+                    <option>{{i}}</option>
+                    {% endfor %}
+                    <input type="submit" name="preview" value="Preview">
+                    <input type="submit" name="todb" value="Import data">
+                </select>
+            </form>
+        {% endif %}
+    </div>
+    <div class="table-responsive tbodyDiv">
+        {% if message is not None  %}
+        <h2>{{message}}</h2>
+        {% endif %}
+        <table class="table table-striped ">
+            <thead>
+              <tr>
+                <tr>
+                    {% for i in Cols %}
+                        <th scope="col">
+                            {{i}}
+                        </th>
+                    {% endfor %}
+                </tr>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in Data %}
+                <tr>
+                    {% for key,value in i.items %}
+                        <td>{{value}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock  %}
+

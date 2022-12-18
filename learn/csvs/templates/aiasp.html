@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if message is not None  %}
+    <h1>{{message}}</h1>
+    {% endif %}
+<div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+        <select name="Dataini" >
+        <option selected disabled value=''>Pilih Database</option>
+        {% for i in select %}
+        <option>{{i}}</option>
+        {% endfor %}
+        <input type="submit"   />
+        </select>
+    </form>
+    </div>
+    <div class="table-responsive tbodyDiv">
+        <table class="table table-striped ">
+            <thead>
+              <tr>
+                <tr>
+                    {% for i in Cols %}
+                        <th scope="col">
+                            {{i}}
+                        </th>
+                    {% endfor %}
+                </tr>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in Data %}
+                <tr>
+                    {% for key,value in i.items %}
+                        <td>{{value}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock  %}
+

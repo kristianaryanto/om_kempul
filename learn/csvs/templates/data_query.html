@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if message or dbname is not None  %}
+    <h1>database={{dbname}}</h1>
+    <h1>table={{message}}</h1>
+    {% endif %} 
+
+<div class="col-12 row d-flex upper" style="border: 1px solid blue; border-radius: 10px;">
+        <div class="col-lg-4 mt-3 accordion">
+            {% for key,value in dict.items %} 
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne1">
+                    <form method="post" >
+                    {% csrf_token %}
+                        <button id = 'accordion_'class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Schema name : {{key}}
+                        </button>
+                </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body" style="overflow-y:scroll; max-height: 100px;">
+                            {% for value_unpack in value  %}
+                                <input " type="submit" name="Dataini" id="yourInputId" value={{key}}.{{value_unpack}} "><br>
+                            {% endfor %}  
+                        </div>
+                    </div>         
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-8 mt-3 query_input">
+            <form method="post" id="text area">
+                {% csrf_token %}
+                    <p><label for="query">query:</label></p>
+                        <textarea class="col-12" id="query" name="query" rows="4">{{load_query}}</textarea>
+                    <br>
+                    <input type="submit" name="form_type" value="preview">
+                    <input type="submit" name="form_type" value="create view">
+                </form>
+            <div class="table-responsive tbodyDiv"  style="overflow-x: scroll; max-width: 620px; max-height: 300px; ">
+                <table class="table table-striped">
+                    {% if query is None%}
+                        <h3>table from {{message}}</h3>
+                    {% else %}
+                        <h3>table from query</h3>
+                    {% endif %}
+                        <tr>{{dfhtml|safe}}</tr>
+                </table>
+            </div>
+        </div>
+</div>
+
+{% endblock  %}

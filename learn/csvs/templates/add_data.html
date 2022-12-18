@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for message in messages %}
+    <script>
+        alert('{{ message }}');
+    </script>
+    {% endfor %}
+    <div class="formforinpt">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {% for i in Cols3 %}
+                    <label for="{{i}}">{{i}} </label>
+                    <input type="text" name="{{i}}" id="{{i}}" class="form-control">
+                    <br>
+        
+                {% endfor %}
+            </div>
+            <button type="Submit">Kirim</button>
+        </form>
+    </div>
+    
+    <div class="table-responsive tbodyDiv">
+        <table class="table table-striped ">
+            <thead>
+              <tr>
+                <tr>
+                    {% for i in Cols3 %}
+                        <th>
+                            {{i}}
+                        </th>
+                    {% endfor %}
+                </tr>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in Data3 %}
+        <tr>
+            {% for key,value in i.items %}
+                <td>{{value}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    {% endblock  %}
